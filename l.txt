@@ -1,0 +1,144 @@
+APP.PY
+
+import streamlit as st 
+import pandas as pd
+from utils.filtros import aplicar_filtros
+from utils.mapa import construir_mapa
+from utils.indicadores import mostrar_kpis
+from streamlit_folium import st_folium
+import base64
+import sqlite3
+
+# Configuración de página
+st.set_page_config(page_title="Mapa del Delito - REGPOL PUNO", layout="wide")
+
+# Cargar archivo CSS con codificación UTF-8
+with open("css/style.css", "r", encoding="utf-8") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Encabezado institucional
+st.markdown('<div class="header">MAPA DEL DELITO - REGPOL PUNO</div>', unsafe_allow_html=True)
+
+# Función para convertir GIF a base64
+def get_base64_gif(gif_path):
+    with open(gif_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# Cargar datos desde SQLite
+@st.cache_data
+def cargar_datos():
+    conn = sqlite3.connect("data/heatmap.db")
+    df = pd.read_sql_query("SELECT * FROM denuncias", conn)
+    conn.close()
+    df = df.dropna(subset=["Latitud", "Longitud"])
+    return df
+
+# Cargar los datos
+df = cargar_datos()
+
+# Layout principal: filtros + mapa
+col_filtros, col_mapa = st.columns([1, 7], gap="medium")
+
+# Panel izquierdo: Filtros y KPIs
+with col_filtros:
+    st.markdown("<div style='margin-top:10px'></div>", unsafe_allow_html=True)
+    st.subheader("🎯 Filtros de búsqueda")
+
+    # Aplicar filtros
+    fecha, delito, unidad, filtro = aplicar_filtros(df)
+
+    # KPIs alineados horizontalmente
+    st.markdown(f"<div class='kpi'>Total denuncias<br>{len(filtro)}</div>", unsafe_allow_html=True)
+
+    # GIF institucional
+    gif_base64 = get_base64_gif("assets/POLITA-GIF-DEMO-prueba.gif")
+    st.markdown(f"""
+        <div style='text-align: center; margin-top: 30px;'>
+            <img src='data:image/gif;base64,{gif_base64}' width='160'>
+            <p style='color:green; font-size:14px; margin-top:8px;'>Policía Nacional del Perú</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+# Panel derecho: Mapa
+with col_mapa:
+    st.markdown("<div style='margin-top: 25px;'></div>", unsafe_allow_html=True)
+    mapa = construir_mapa(filtro)
+    st_folium(mapa, use_container_width=True, height=980)
+
+# Pie institucional
+st.markdown("""<hr style='margin-top: 40px;'>""", unsafe_allow_html=True)
+st.markdown("""
+    <div style='text-align:center; font-size: 18px; color: gray; margin-bottom: 20px;'>
+        Sistema de Análisis Georeferencial de la Criminalidad - REGPOL PUNO <br>
+        UNITIC PNP PUNO © 2025
+    </div>
+""", unsafe_allow_html=True)
+
+
+----------------------------
+CSS STYLE
+
+import streamlit as st
+import pandas as pd
+from utils.filtros import aplicar_filtros
+from utils.mapa import construir_mapa
+from streamlit_folium import st_folium
+import base64
+import sqlite3
+
+st.set_page_config(page_title="Mapa del Delito - REGPOL PUNO", layout="wide")
+
+# Cargar CSS
+with open("css/style.css", "r", encoding="utf-8") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Convertir GIF a base64
+def get_base64_gif(gif_path):
+    with open(gif_path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+# Cargar datos desde SQLite
+@st.cache_data
+def cargar_datos():
+    conn = sqlite3.connect("data/heatmap.db")
+    df = pd.read_sql_query("SELECT * FROM denuncias", conn)
+    conn.close()
+    df = df.dropna(subset=["Latitud", "Longitud"])
+    return df
+
+# Cargar datos
+df = cargar_datos()
+
+# Construcción del contenedor visual
+st.markdown('<div class="map-container">', unsafe_allow_html=True)
+
+# Panel flotante (todo el contenido)
+st.markdown("""
+<div class="floating-panel">
+    <h2>📍 Mapa del Delito - REGPOL PUNO</h2>
+""", unsafe_allow_html=True)
+
+# Filtros
+fecha, delito, unidad, filtro = aplicar_filtros(df)
+
+# KPIs
+st.markdown(f"<div class='kpi-box'>Total denuncias: <b>{len(filtro)}</b></div>", unsafe_allow_html=True)
+
+# GIF institucional
+gif_base64 = get_base64_gif("assets/POLITA-GIF-DEMO-prueba.gif")
+st.markdown(f"""
+    <div style='text-align:center; margin-top:10px;'>
+        <img src='data:image/gif;base64,{gif_base64}' width='120'>
+        <p style='font-size:12px; color:white;'>Policía Nacional del Perú</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# Cierre del panel flotante
+st.markdown("</div>", unsafe_allow_html=True)
+
+# Mostrar el mapa
+mapa = construir_mapa(filtro)
+st_folium(mapa, use_container_width=True, height=1000)
+
+st.markdown('</div>', unsafe_allow_html=True)  # Cierre del contenedor general

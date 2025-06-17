@@ -1,0 +1,19 @@
+python --version
+
+pip install pandas folium openpyxl
+
+pip install streamlit-folium
+
+python -m streamlit run app.py
+
+streamlit run app.py
+
+pip freeze > requirements.txt
+
+python crear_bd.py
+
+python ver_tablas.py
+
+
+
+

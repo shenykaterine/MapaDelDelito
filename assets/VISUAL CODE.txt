@@ -1,0 +1,45 @@
+NODEJS
+DESCARGAR: https://nodejs.org/
+
+Verificar la instalación (Win + R, escribe cmd y presiona Enter) y ejecuta:
+
+node -v (Devuelve la version)
+
+npm -v (versión de npm, lo que confirma que está funcionand)
+
+
+Instalar dependencias y ejecutar el proyecto
+
+	npm install (cmd del proyecto)
+	npm run dev (cmd iniciar el servidor)
+
+
+TAILWIND CSS
+
+Tailwind CSS IntelliSense ( Instalar la extensión de Tailwind en VS Code)
+
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
+
+npm audit fix (SOLUCION VULNERABILIDADES)
+
+npm list tailwindcss (VERSION DE TAILW)
+
+----------------------------------------------------
+
+forzar:
+
+Ctrl + Shift + P Escribe "Preferences: Open Settings (JSON)
+
+agrega
+
+ "css.lint.unknownAtRules": "ignore"
+------------------------------------------------------
+Guarda los cambios con Ctrl + S
+
+Presiona Ctrl + Shift + P (o Cmd + Shift + P).
+
+Escribe "Reload Window" y selecciona la opción "Developer: Reload Window" para recargar el editor y aplicar los cambios.
+
+

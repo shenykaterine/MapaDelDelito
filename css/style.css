@@ -1,0 +1,166 @@
+/* Oculta el botón de colapsar la sidebar */
+button[title="Toggle sidebar"] {
+  display: none !important;
+}
+
+/* Sidebar flotante fija, SIN desplazamiento */
+[data-testid="stSidebar"] {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  width: 220px !important;
+  height: auto !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background-color: rgba(214, 224, 234, 0.95) !important;
+  padding: 4px 10px 10px 10px !important; /* top reducido */
+  border-radius: 10px !important;
+  z-index: 1000 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+/* Títulos dentro del sidebar */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+  font-size: 16px !important;
+  color: #111 !important;
+  margin: 6px 0 !important;
+}
+
+/* Widgets compactos pero legibles */
+[data-testid="stSidebar"] .stSelectbox,
+[data-testid="stSidebar"] .stDateInput,
+[data-testid="stSidebar"] .stTextInput,
+[data-testid="stSidebar"] .stSlider,
+[data-testid="stSidebar"] .stRadio,
+[data-testid="stSidebar"] .stMultiSelect,
+[data-testid="stSidebar"] .stCheckbox,
+[data-testid="stSidebar"] .stNumberInput,
+[data-testid="stSidebar"] .stMetric {
+  margin-bottom: 6px !important;
+  font-size: 14px !important;
+}
+
+/* Ajustes de padding internos (más compactos) */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] select,
+[data-testid="stSidebar"] textarea {
+  padding: 4px 6px !important;
+  height: auto !important;
+}
+
+/* Estilo del título de filtros */
+.titulo-filtro {
+  margin-top: 0px !important;
+  margin-bottom: 2px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: #0c2b51 !important;
+}
+
+/* Texto debajo del GIF */
+.gif-text {
+  font-size: 8px;
+  color: #79d3ea;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* Fondo general claro y legible */
+html, body, .stApp {
+  background-color: #d9e0e9 !important;
+  color: #222 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  font-size: 16px !important;
+}
+
+/* El contenido principal (el mapa) ocupa toda la pantalla */
+section.main {
+  height: 100vh !important;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Contenedor del mapa ocupa todo */
+.element-container {
+  flex: 1;
+  height: 100% !important;
+  margin: 0 !important;
+}
+
+/* Mapa folium ocupa todo el espacio disponible */
+.folium-map {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 8px !important;
+}
+
+/* Ajuste para forzar layout sin scroll */
+[data-testid="stAppViewContainer"] {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+[data-testid="stVerticalBlock"] {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.block-container {
+  height: auto !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Ajuste de iframe si usas capas adicionales */
+iframe {
+  width: 100% !important;
+  height: 690px !important;
+  border: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+
+/* 🔧 Asegura que el título no tenga margen extra */
+.titulo-filtro {
+  margin-top: 20px !important;
+  padding-top: 0px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: #0c2b51 !important;
+}
+
+/* Forzar centrado vertical y horizontal del KPI */
+.kpi {
+  text-align: center !important;
+  font-size: 15px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 3px;
+  background-color: #79d3ea !important;
+  border: none solid #fb9595 !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1)
+}
+
+.kpi-num {
+  font-size: 22px !important;       /* Aumenta este valor para agrandar el número */
+  font-weight: bold !important;
+  color: #131313 !important;
+  margin-top: 2px !important;
+}
+
+
